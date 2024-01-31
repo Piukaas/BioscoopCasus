@@ -81,9 +81,9 @@ public class Order {
 
         try {
             Files.createDirectories(Paths.get("orders"));
-            try (PrintWriter out = new PrintWriter("orders/order_" + this.count + ".txt")) {
+            try (PrintWriter out = new PrintWriter("orders/order_" + count + ".txt")) {
                 out.println(sb.toString());
-                this.count++;
+                count++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,9 +107,9 @@ public class Order {
 
         try {
             Files.createDirectories(Paths.get("orders"));
-            try (PrintWriter out = new PrintWriter("orders/order_" + this.count + ".json")) {
+            try (PrintWriter out = new PrintWriter("orders/order_" + count + ".json")) {
                 out.println(jsonOrder.toString());
-                this.count++;
+                count++;
             }
         } catch (Exception e) {
             e.printStackTrace();
