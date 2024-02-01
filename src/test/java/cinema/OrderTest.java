@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class OrderTests {
+class OrderTest {
     private Movie movie;
     private Movie otherMovie;
     private LocalDateTime wednesdayDateTime;
