@@ -110,4 +110,14 @@ class OrderTests {
         assertEquals(63.0, order.calculatePrice());
     }
 
+    @Test
+    void testCalculatePrice_premiumWeekendOrderMoreThanSixTicketsGetTenPercentOff()
+    {
+        //add a loop for adding 7 premium tickets
+        for (int i = 0; i < 7; i++) {
+            order.addSeatReservation(premiumMovieTicketWeekend);
+        }
+        assertEquals(81.9, order.calculatePrice());
+    }
+
 }
