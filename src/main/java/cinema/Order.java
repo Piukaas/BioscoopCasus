@@ -54,6 +54,9 @@ public class Order {
                     ticketPrice *= 0.9; // Apply 10% group discount
                     total += ticketPrice;
                 }
+                else {
+                    total += ticketPrice;
+                }
             }
 
             ticketCount++;
