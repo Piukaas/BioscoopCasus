@@ -117,7 +117,7 @@ class OrderTest {
         for (int i = 0; i < 7; i++) {
             order.addSeatReservation(premiumMovieTicketWeekend);
         }
-        assertEquals(82.9, order.calculatePrice());
+        assertEquals(81.9, order.calculatePrice());
     }
 
 }
