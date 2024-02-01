@@ -48,14 +48,14 @@ public class Order {
                     total += ticketPrice;
                 }
             } else {
-                // On weekends, non-students pay full price unless the order consists of 6 or
-                // more tickets
-                if (tickets.size() >= 6) {
-                    ticketPrice *= 0.9; // Apply 10% group discount
-                    total += ticketPrice;
-                }
+                total += ticketPrice;
             }
 
+            // group discount
+            if (tickets.size() >= 6) {
+                ticketPrice *= 0.1; // Apply 10% group discount
+                total -= ticketPrice;
+            }
             ticketCount++;
         }
 
