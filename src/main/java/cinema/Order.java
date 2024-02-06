@@ -28,6 +28,40 @@ public class Order {
         tickets.add(ticket);
     }
 
+    public double calculatePrice() {
+        double total = 0.0;
+        int ticketCount = 0;
+        boolean isWeekend = false;
+
+        for (MovieTicket ticket : tickets) {
+            LocalDateTime screeningDate = ticket.getScreeningDate();
+            isWeekend = screeningDate.getDayOfWeek().getValue() >= 5;
+
+            double ticketPrice = ticket.getPrice();
+            if (ticket.isPremiumTicket()) {
+                ticketPrice += isStudentOrder ? 2 : 3;
+            }
+
+            if (isStudentOrder || !isWeekend) {
+                // Every second ticket is free for students or on weekdays
+                if (ticketCount % 2 == 0) {
+                    total += ticketPrice;
+                }
+            } else {
+                total += ticketPrice;
+            }
+
+            // group discount
+            if (tickets.size() >= 6) {
+                ticketPrice *= 0.1; // Apply 10% group discount
+                total -= ticketPrice;
+            }
+            ticketCount++;
+        }
+
+        return total;
+    }
+
     public void export(TicketExportFormat exportFormat) {
         switch (exportFormat) {
             case PLAINTEXT:
