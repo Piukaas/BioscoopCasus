@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>piukaas</sonar.organization>
+        <sonar.projectKey>cinema:bioscoop-casus</sonar.projectKey>
     </properties>
 
     <dependencies>
