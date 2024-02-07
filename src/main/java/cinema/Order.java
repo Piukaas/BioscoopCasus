@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cinema.pricing.GroupPricingStrategy;
+import cinema.pricing.PricingStrategy;
+import cinema.pricing.StandardPricingStrategy;
+
 public class Order {
     private int orderNr;
     private boolean isStudentOrder;
@@ -32,15 +36,17 @@ public class Order {
         double total = 0.0;
         int ticketCount = 0;
         boolean isWeekend = false;
-
+        PricingStrategy pricingStrategy = new StandardPricingStrategy();
         for (MovieTicket ticket : tickets) {
             LocalDateTime screeningDate = ticket.getScreeningDate();
             isWeekend = screeningDate.getDayOfWeek().getValue() >= 5;
 
-            double ticketPrice = ticket.getPrice();
-            if (ticket.isPremiumTicket()) {
-                ticketPrice += isStudentOrder ? 2 : 3;
+            if(tickets.size() > 6) {
+                pricingStrategy = new GroupPricingStrategy();
+            } else {
+                pricingStrategy = new StandardPricingStrategy();
             }
+            double ticketPrice = pricingStrategy.calculatePrice(ticket, isStudentOrder, isWeekend);
 
             if (isStudentOrder || !isWeekend) {
                 // Every second ticket is free for students or on weekdays
@@ -49,12 +55,6 @@ public class Order {
                 }
             } else {
                 total += ticketPrice;
-            }
-
-            // group discount
-            if (tickets.size() >= 6) {
-                ticketPrice *= 0.1; // Apply 10% group discount
-                total -= ticketPrice;
             }
             ticketCount++;
         }
