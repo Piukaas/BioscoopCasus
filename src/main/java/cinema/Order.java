@@ -119,6 +119,10 @@ public class Order {
             e.printStackTrace();
         }
     }
+    
+    public void setState(OrderState state) {
+        this.state = state;
+    }
 
     public void submitOrder() {
         state.submitOrder(this);

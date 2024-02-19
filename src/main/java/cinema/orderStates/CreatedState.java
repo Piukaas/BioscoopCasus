@@ -13,6 +13,9 @@ public class CreatedState implements OrderState{
     @Override
     public void submitOrder(Order order) {
 
+        
+        System.out.println("Order " + order.getOrderNr() + " is ingediend.");
+        order.setState(new SubmittedState());
     }
 
     @Override

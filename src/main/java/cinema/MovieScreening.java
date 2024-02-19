@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class MovieScreening {
     private LocalDateTime dateAndTime;
     private double pricePerSeat;
+    //arraylist for reserved seats
+    private boolean[][] reservedSeats = new boolean[100][100];
 
     public MovieScreening(Movie movie, LocalDateTime dateAndTime, double pricePerSeat) {
         this.dateAndTime = dateAndTime;
@@ -21,5 +23,17 @@ public class MovieScreening {
 
     public String toString() {
         return dateAndTime.toString() + " " + pricePerSeat;
+    }
+
+    public void setSeatReserved(int seatNr, int rowNr) {
+        reservedSeats[seatNr][rowNr] = true;
+    }
+
+    public boolean isSeatReserved(int seatNr, int rowNr) {
+        return reservedSeats[seatNr][rowNr];
+    }
+
+    public void removeSeatReservation(int seatNr, int rowNr) {
+        reservedSeats[seatNr][rowNr] = false;
     }
 }
