@@ -13,6 +13,7 @@ public class CreatedState implements OrderState {
 
     @Override
     public void submitOrder(Order order) {
+        order.reserveSeats();
         System.out.println("Order " + order.getOrderNr() + " is submitted.");
         order.setState(new SubmittedState());
     }
