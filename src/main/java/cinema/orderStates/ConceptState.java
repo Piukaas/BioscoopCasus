@@ -9,7 +9,7 @@ public class ConceptState implements OrderState {
     @Override
     public void createOrder(Order order, MovieTicket[] tickets) {
         for (MovieTicket ticket : tickets) {
-            order.addSeatReservation(ticket);
+            order.addSeat(ticket);
         }
         System.out.println("Order " + order.getOrderNr() + " is created.");
         order.setState(new CreatedState());

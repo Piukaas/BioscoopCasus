@@ -30,20 +30,20 @@ public class MainOrder {
 
         // Create a non-student order
         Order order = new Order(1, false);
-        order.addSeatReservation(premiumMovieTicket);
-        order.addSeatReservation(movieTicket); // This ticket should be free because it's the second ticket
+        order.addSeat(premiumMovieTicket);
+        order.addSeat(movieTicket); // This ticket should be free because it's the second ticket
         System.out.println("The price of the non-student order is: " + order.calculatePrice());
 
         // Create a student order
         Order studentOrder = new Order(2, true);
-        studentOrder.addSeatReservation(premiumMovieTicket);
-        studentOrder.addSeatReservation(movieTicket); // This ticket should be free because it's the second
+        studentOrder.addSeat(premiumMovieTicket);
+        studentOrder.addSeat(movieTicket); // This ticket should be free because it's the second
         System.out.println("The price of the student order is: " + studentOrder.calculatePrice());
 
         // Create a non-student order with 6 tickets for a weekend screening
         Order groupOrder = new Order(3, false);
         for (int i = 0; i < 6; i++) {
-            groupOrder.addSeatReservation(new MovieTicket(weekendMovieScreening, 1, i + 1, true));
+            groupOrder.addSeat(new MovieTicket(weekendMovieScreening, 1, i + 1, true));
         }
         System.out.println("The price of the non-student group order is: " + groupOrder.calculatePrice());
 
