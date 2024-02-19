@@ -1,12 +1,13 @@
 package cinema.orderStates;
 
+import cinema.MovieTicket;
 import cinema.Order;
 import cinema.OrderState;
 
 public class CancelledState implements OrderState {
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Order order, MovieTicket[] tickets) {
         System.out.println("Order " + order.getOrderNr() + " is already cancelled and can not be created again.");
     }
 

@@ -1,14 +1,17 @@
 package cinema.orderStates;
 
+import cinema.MovieTicket;
 import cinema.Order;
 import cinema.OrderState;
 
 public class ConceptState implements OrderState{
 
     @Override
-    public void createOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
+    public void createOrder(Order order, MovieTicket[] tickets) {
+        for (MovieTicket ticket : tickets) {
+            order.addSeatReservation(ticket);
+        }
+
     }
 
     @Override

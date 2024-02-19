@@ -1,12 +1,13 @@
 package cinema.orderStates;
 
+import cinema.MovieTicket;
 import cinema.Order;
 import cinema.OrderState;
 
 public class SubmittedState implements OrderState {
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Order order, MovieTicket[] tickets) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
     }
