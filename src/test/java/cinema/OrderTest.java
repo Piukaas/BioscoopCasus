@@ -1,11 +1,18 @@
 package cinema;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import cinema.orderStates.CancelledState;
+import cinema.orderStates.ConceptState;
+import cinema.orderStates.CreatedState;
+import cinema.orderStates.HandledState;
+import cinema.orderStates.ProvisionalState;
 
 class OrderTest {
     private Movie movie;
@@ -20,10 +27,10 @@ class OrderTest {
     private MovieTicket premiumMovieTicketWeekend;
     private Order studentOrder;
     private Order order;
+    private MovieTicket[] tickets;
 
     @BeforeEach
-    void setUp() 
-    {
+    void setUp() {
         movie = new Movie("The Matrix");
         otherMovie = new Movie("John Wick");
         // Wednesday
@@ -38,11 +45,55 @@ class OrderTest {
         premiumMovieTicketWeekend = new MovieTicket(weekendMovieScreening, 1, 1, true);
         studentOrder = new Order(2, true);
         order = new Order(1, false);
+        order.setState(new ConceptState());
+        tickets = new MovieTicket[] { regularMovieTicketWeekDay, premiumMovieTicketWeekDay };
+    }
+
+    // State tests
+    @Test
+    void testCreateOrder() {
+        MovieTicket[] tickets = new MovieTicket[] { regularMovieTicketWeekDay, premiumMovieTicketWeekDay };
+        order.createOrder(tickets);
+        assertTrue(order.getState() instanceof CreatedState,
+                "Order state should be CreatedState after calling createOrder");
     }
 
     @Test
-    void testCalculatePrice_StudentOrderThreeTickets() 
-    {
+    void testSubmitOrder() {
+        order.submitOrder();
+        assertTrue(order.getState() instanceof ConceptState,
+                "Order state should still be ConceptState after calling submitOrder before createOrder");
+    }
+
+    @Test
+    void testPayOrder() {
+        order.createOrder(tickets);
+        order.submitOrder();
+        order.payOrder();
+        assertTrue(order.getState() instanceof HandledState,
+                "Order state should be HandledState after calling payOrder");
+    }
+
+    @Test
+    void testRemindOrder() {
+        order.createOrder(tickets);
+        order.submitOrder();
+        order.remindOrder();
+        assertTrue(order.getState() instanceof ProvisionalState,
+                "Order state should be ProvisionalState after calling remindOrder");
+    }
+
+    @Test
+    void testCancelOrder() {
+        order.createOrder(tickets);
+        order.cancelOrder();
+        assertTrue(order.getState() instanceof CancelledState,
+                "Order state should be CancelledState after calling cancelOrder");
+    }
+
+    // calculatePrice tests
+    @Test
+    void testCalculatePrice_StudentOrderThreeTickets() {
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
@@ -50,8 +101,7 @@ class OrderTest {
     }
 
     @Test
-    void testCalculatePrice_StudentOrderFourTickets() 
-    {
+    void testCalculatePrice_StudentOrderFourTickets() {
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
         studentOrder.addSeatReservation(regularMovieTicketWeekDay);
@@ -60,16 +110,14 @@ class OrderTest {
     }
 
     @Test
-    void testCalculatePrice_StudentOrderTwoPremiumTickets() 
-    {
+    void testCalculatePrice_StudentOrderTwoPremiumTickets() {
         studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
         studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
         assertEquals(12.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_StudentOrderThreePremiumTickets() 
-    {
+    void testCalculatePrice_StudentOrderThreePremiumTickets() {
         studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
         studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
         studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
@@ -77,33 +125,29 @@ class OrderTest {
     }
 
     @Test
-    void testCalculatePrice_regularOrderOnWeekDaySecondTicketFree() 
-    {
+    void testCalculatePrice_regularOrderOnWeekDaySecondTicketFree() {
         order.addSeatReservation(regularMovieTicketWeekDay);
         order.addSeatReservation(regularMovieTicketWeekDay);
         assertEquals(10.0, order.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_regularOrderOnWeekendIsFullPrice() 
-    {
+    void testCalculatePrice_regularOrderOnWeekendIsFullPrice() {
         order.addSeatReservation(regularMovieTicketWeekend);
         order.addSeatReservation(regularMovieTicketWeekend);
         assertEquals(20.0, order.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_studentOrderOnWeekendSecondTicketFree() 
-    {
+    void testCalculatePrice_studentOrderOnWeekendSecondTicketFree() {
         studentOrder.addSeatReservation(regularMovieTicketWeekend);
         studentOrder.addSeatReservation(regularMovieTicketWeekend);
         assertEquals(10.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_regularWeekendOrderMoreThanSixTicketsGetTenPercentOff() 
-    {
-        //add a loop for adding 7 regular tickets
+    void testCalculatePrice_regularWeekendOrderMoreThanSixTicketsGetTenPercentOff() {
+        // add a loop for adding 7 regular tickets
         for (int i = 0; i < 7; i++) {
             order.addSeatReservation(regularMovieTicketWeekend);
         }
@@ -111,9 +155,8 @@ class OrderTest {
     }
 
     @Test
-    void testCalculatePrice_premiumWeekendOrderMoreThanSixTicketsGetTenPercentOff()
-    {
-        //add a loop for adding 7 premium tickets
+    void testCalculatePrice_premiumWeekendOrderMoreThanSixTicketsGetTenPercentOff() {
+        // add a loop for adding 7 premium tickets
         for (int i = 0; i < 7; i++) {
             order.addSeatReservation(premiumMovieTicketWeekend);
         }
