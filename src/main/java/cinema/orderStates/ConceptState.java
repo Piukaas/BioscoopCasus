@@ -11,31 +11,27 @@ public class ConceptState implements OrderState{
         for (MovieTicket ticket : tickets) {
             order.addSeatReservation(ticket);
         }
-
+        order.setState(new CreatedState());
     }
 
     @Override
     public void submitOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'submitOrder'");
+        System.out.println("Please create an order first.");
     }
 
     @Override
     public void payOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'payOrder'");
+        System.out.println("Please submit your order first.");
     }
 
     @Override
     public void remindOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remindOrder'");
+        System.out.println("Please don't forget to create your order to watch the movie.");
     }
 
     @Override
     public void cancelOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelOrder'");
+        System.out.println("You don't have an order to cancel.");
     }
     
 }
