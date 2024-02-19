@@ -3,36 +3,31 @@ package cinema.orderStates;
 import cinema.Order;
 import cinema.OrderState;
 
-public class CancelledState implements OrderState{
+public class CancelledState implements OrderState {
 
     @Override
     public void createOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
+        System.out.println("Order " + order.getOrderNr() + " is already cancelled and can not be created again.");
     }
 
     @Override
     public void submitOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'submitOrder'");
+        System.out.println("Order " + order.getOrderNr() + " is already cancelled and can not be submitted again.");
     }
 
     @Override
     public void payOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'payOrder'");
+        System.out.println("Order " + order.getOrderNr() + " is already cancelled and can not be paid for anymore.");
     }
 
     @Override
     public void remindOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remindOrder'");
+        System.out.println("Order " + order.getOrderNr() + " is already cancelled and reminder can not be sent again.");
     }
 
     @Override
     public void cancelOrder(Order order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelOrder'");
+        System.out.println("Order " + order.getOrderNr() + " is already cancelled.");
     }
-    
+
 }
