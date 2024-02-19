@@ -4,12 +4,12 @@ import cinema.MovieTicket;
 import cinema.Order;
 import cinema.OrderState;
 
-public class ConceptState implements OrderState{
+public class ConceptState implements OrderState {
 
     @Override
     public void createOrder(Order order, MovieTicket[] tickets) {
         for (MovieTicket ticket : tickets) {
-            order.addSeatReservation(ticket);
+            order.addSeat(ticket);
         }
         order.setState(new CreatedState());
     }
@@ -33,5 +33,5 @@ public class ConceptState implements OrderState{
     public void cancelOrder(Order order) {
         System.out.println("You don't have an order to cancel.");
     }
-    
+
 }

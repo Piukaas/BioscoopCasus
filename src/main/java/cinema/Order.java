@@ -28,8 +28,22 @@ public class Order {
         return orderNr;
     }
 
-    public void addSeatReservation(MovieTicket ticket) {
+    public void addSeat(MovieTicket ticket) {
         tickets.add(ticket);
+    }
+
+    public void reserveSeats() {
+        for (MovieTicket ticket : tickets) {
+            MovieScreening screening = ticket.getScreening();
+            screening.setSeatReserved(ticket.getSeatNr(), ticket.getRowNr());
+        }
+    }
+
+    public void removeSeatReservation() {
+        for (MovieTicket ticket : tickets) {
+            MovieScreening screening = ticket.getScreening();
+            screening.removeSeatReservation(ticket.getSeatNr(), ticket.getRowNr());
+        }
     }
 
     public double calculatePrice() {
@@ -119,7 +133,7 @@ public class Order {
             e.printStackTrace();
         }
     }
-    
+
     public void setState(OrderState state) {
         this.state = state;
     }

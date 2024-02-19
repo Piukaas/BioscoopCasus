@@ -30,4 +30,16 @@ public class MovieTicket {
     public String toString() {
         return "Row " + rowNr + ", seat " + seatNr + ", premium: " + isPremium;
     }
+
+    public MovieScreening getScreening() {
+        return movieScreening;
+    }
+
+    public int getRowNr() {
+        return rowNr;
+    }
+
+    public int getSeatNr() {
+        return seatNr;
+    }
 }

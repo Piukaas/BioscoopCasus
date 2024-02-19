@@ -22,8 +22,7 @@ class OrderTest {
     private Order order;
 
     @BeforeEach
-    void setUp() 
-    {
+    void setUp() {
         movie = new Movie("The Matrix");
         otherMovie = new Movie("John Wick");
         // Wednesday
@@ -41,81 +40,72 @@ class OrderTest {
     }
 
     @Test
-    void testCalculatePrice_StudentOrderThreeTickets() 
-    {
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
+    void testCalculatePrice_StudentOrderThreeTickets() {
+        studentOrder.addSeat(regularMovieTicketWeekDay);
+        studentOrder.addSeat(regularMovieTicketWeekDay);
+        studentOrder.addSeat(regularMovieTicketWeekDay);
         assertEquals(20.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_StudentOrderFourTickets() 
-    {
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
-        studentOrder.addSeatReservation(regularMovieTicketWeekDay);
+    void testCalculatePrice_StudentOrderFourTickets() {
+        studentOrder.addSeat(regularMovieTicketWeekDay);
+        studentOrder.addSeat(regularMovieTicketWeekDay);
+        studentOrder.addSeat(regularMovieTicketWeekDay);
+        studentOrder.addSeat(regularMovieTicketWeekDay);
         assertEquals(20.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_StudentOrderTwoPremiumTickets() 
-    {
-        studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
-        studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
+    void testCalculatePrice_StudentOrderTwoPremiumTickets() {
+        studentOrder.addSeat(premiumMovieTicketWeekDay);
+        studentOrder.addSeat(premiumMovieTicketWeekDay);
         assertEquals(12.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_StudentOrderThreePremiumTickets() 
-    {
-        studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
-        studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
-        studentOrder.addSeatReservation(premiumMovieTicketWeekDay);
+    void testCalculatePrice_StudentOrderThreePremiumTickets() {
+        studentOrder.addSeat(premiumMovieTicketWeekDay);
+        studentOrder.addSeat(premiumMovieTicketWeekDay);
+        studentOrder.addSeat(premiumMovieTicketWeekDay);
         assertEquals(24.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_regularOrderOnWeekDaySecondTicketFree() 
-    {
-        order.addSeatReservation(regularMovieTicketWeekDay);
-        order.addSeatReservation(regularMovieTicketWeekDay);
+    void testCalculatePrice_regularOrderOnWeekDaySecondTicketFree() {
+        order.addSeat(regularMovieTicketWeekDay);
+        order.addSeat(regularMovieTicketWeekDay);
         assertEquals(10.0, order.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_regularOrderOnWeekendIsFullPrice() 
-    {
-        order.addSeatReservation(regularMovieTicketWeekend);
-        order.addSeatReservation(regularMovieTicketWeekend);
+    void testCalculatePrice_regularOrderOnWeekendIsFullPrice() {
+        order.addSeat(regularMovieTicketWeekend);
+        order.addSeat(regularMovieTicketWeekend);
         assertEquals(20.0, order.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_studentOrderOnWeekendSecondTicketFree() 
-    {
-        studentOrder.addSeatReservation(regularMovieTicketWeekend);
-        studentOrder.addSeatReservation(regularMovieTicketWeekend);
+    void testCalculatePrice_studentOrderOnWeekendSecondTicketFree() {
+        studentOrder.addSeat(regularMovieTicketWeekend);
+        studentOrder.addSeat(regularMovieTicketWeekend);
         assertEquals(10.0, studentOrder.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_regularWeekendOrderMoreThanSixTicketsGetTenPercentOff() 
-    {
-        //add a loop for adding 7 regular tickets
+    void testCalculatePrice_regularWeekendOrderMoreThanSixTicketsGetTenPercentOff() {
+        // add a loop for adding 7 regular tickets
         for (int i = 0; i < 7; i++) {
-            order.addSeatReservation(regularMovieTicketWeekend);
+            order.addSeat(regularMovieTicketWeekend);
         }
         assertEquals(63.0, order.calculatePrice());
     }
 
     @Test
-    void testCalculatePrice_premiumWeekendOrderMoreThanSixTicketsGetTenPercentOff()
-    {
-        //add a loop for adding 7 premium tickets
+    void testCalculatePrice_premiumWeekendOrderMoreThanSixTicketsGetTenPercentOff() {
+        // add a loop for adding 7 premium tickets
         for (int i = 0; i < 7; i++) {
-            order.addSeatReservation(premiumMovieTicketWeekend);
+            order.addSeat(premiumMovieTicketWeekend);
         }
         assertEquals(81.9, order.calculatePrice());
     }
