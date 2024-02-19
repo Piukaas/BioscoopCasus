@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cinema.orderStates.CreatedState;
+
 public class Order {
+    private OrderState state;
     private int orderNr;
     private boolean isStudentOrder;
     private ArrayList<MovieTicket> tickets = new ArrayList<>();
@@ -18,6 +21,7 @@ public class Order {
     public Order(int orderNr, boolean isStudentOrder) {
         this.orderNr = orderNr;
         this.isStudentOrder = isStudentOrder;
+        this.state = new CreatedState();
     }
 
     public int getOrderNr() {
@@ -114,5 +118,21 @@ public class Order {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void submitOrder() {
+        state.submitOrder(this);
+    }
+
+    public void cancelOrder() {
+        state.cancelOrder(this);
+    }
+
+    public void payOrder() {
+        state.payOrder(this);
+    }
+
+    public void remindOrder() {
+        state.remindOrder(this);
     }
 }
