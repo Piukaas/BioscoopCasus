@@ -30,6 +30,7 @@ public class SubmittedState implements OrderState {
 
     @Override
     public void cancelOrder(Order order) {
+        order.removeSeatReservation();
         System.out.println("Order " + order.getOrderNr() + " is cancelled.");
         order.setState(new CancelledState());
     }

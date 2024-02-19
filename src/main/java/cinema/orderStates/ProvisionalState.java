@@ -18,7 +18,7 @@ public class ProvisionalState implements OrderState {
 
     @Override
     public void payOrder(Order order) {
-        System.out.println("Order " + order.getOrderNr() + " is paid.");
+        System.out.println("Order " + order.getOrderNr() + " is not yet paid.");
         order.setState(new HandledState());
     }
 
@@ -29,6 +29,7 @@ public class ProvisionalState implements OrderState {
 
     @Override
     public void cancelOrder(Order order) {
+        order.removeSeatReservation();
         System.out.println("Order " + order.getOrderNr() + " is cancelled, due to not paying.");
         order.setState(new CancelledState());
     }
