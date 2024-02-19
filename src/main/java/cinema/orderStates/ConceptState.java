@@ -4,13 +4,14 @@ import cinema.MovieTicket;
 import cinema.Order;
 import cinema.OrderState;
 
-public class ConceptState implements OrderState{
+public class ConceptState implements OrderState {
 
     @Override
     public void createOrder(Order order, MovieTicket[] tickets) {
         for (MovieTicket ticket : tickets) {
             order.addSeatReservation(ticket);
         }
+        System.out.println("Order " + order.getOrderNr() + " is created.");
         order.setState(new CreatedState());
     }
 
@@ -21,7 +22,7 @@ public class ConceptState implements OrderState{
 
     @Override
     public void payOrder(Order order) {
-        System.out.println("Please submit your order first.");
+        System.out.println("Please create and submit your order first.");
     }
 
     @Override
@@ -33,5 +34,5 @@ public class ConceptState implements OrderState{
     public void cancelOrder(Order order) {
         System.out.println("You don't have an order to cancel.");
     }
-    
+
 }

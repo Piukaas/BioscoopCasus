@@ -23,7 +23,7 @@ public class HandledState implements OrderState {
 
     @Override
     public void remindOrder(Order order) {
-        System.out.println("Order " + order.getOrderNr() + " reminder has already been sent.");
+        System.out.println("Order " + order.getOrderNr() + " is already paid, no reminder necessary.");
     }
 
     @Override

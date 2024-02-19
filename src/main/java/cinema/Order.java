@@ -139,4 +139,8 @@ public class Order {
     public void remindOrder() {
         state.remindOrder(this);
     }
+
+    public void createOrder(MovieTicket[] tickets) {
+        state.createOrder(this, tickets);
+    }
 }

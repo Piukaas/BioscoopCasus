@@ -2,6 +2,8 @@ package cinema;
 
 import java.time.LocalDateTime;
 
+import cinema.orderStates.ConceptState;
+
 public class MainOrder {
     public static void main(String[] args) {
         // Create a movie
@@ -44,5 +46,15 @@ public class MainOrder {
             groupOrder.addSeatReservation(new MovieTicket(weekendMovieScreening, 1, i + 1, true));
         }
         System.out.println("The price of the non-student group order is: " + groupOrder.calculatePrice());
+
+        // Test the states
+        order.setState(new ConceptState());
+
+        MovieTicket[] tickets = new MovieTicket[] { movieTicket, premiumMovieTicket };
+        order.createOrder(tickets);
+        order.submitOrder();
+        order.remindOrder();
+        order.payOrder();
+        order.cancelOrder();
     }
 }
