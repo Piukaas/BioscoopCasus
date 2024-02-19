@@ -19,12 +19,13 @@ public class SubmittedState implements OrderState {
     @Override
     public void payOrder(Order order) {
         System.out.println("Order " + order.getOrderNr() + " is paid.");
-        order.setState(new PaidState());
+        order.setState(new HandledState());
     }
 
     @Override
     public void remindOrder(Order order) {
-        
+        System.out.println("Order " + order.getOrderNr() + " reminder has been sent.");
+        order.setState(new ProvisionalState());
     }
 
     @Override
