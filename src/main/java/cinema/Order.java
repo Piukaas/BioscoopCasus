@@ -138,6 +138,10 @@ public class Order {
         this.state = state;
     }
 
+    public OrderState getState() {
+        return state;
+    }
+
     public void submitOrder() {
         state.submitOrder(this);
     }

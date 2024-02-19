@@ -1,11 +1,18 @@
 package cinema;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import cinema.orderStates.CancelledState;
+import cinema.orderStates.ConceptState;
+import cinema.orderStates.CreatedState;
+import cinema.orderStates.HandledState;
+import cinema.orderStates.ProvisionalState;
 
 class OrderTest {
     private Movie movie;
@@ -20,6 +27,7 @@ class OrderTest {
     private MovieTicket premiumMovieTicketWeekend;
     private Order studentOrder;
     private Order order;
+    private MovieTicket[] tickets;
 
     @BeforeEach
     void setUp() {
@@ -37,8 +45,53 @@ class OrderTest {
         premiumMovieTicketWeekend = new MovieTicket(weekendMovieScreening, 1, 1, true);
         studentOrder = new Order(2, true);
         order = new Order(1, false);
+        order.setState(new ConceptState());
+        tickets = new MovieTicket[] { regularMovieTicketWeekDay, premiumMovieTicketWeekDay };
     }
 
+    // State tests
+    @Test
+    void testCreateOrder() {
+        MovieTicket[] tickets = new MovieTicket[] { regularMovieTicketWeekDay, premiumMovieTicketWeekDay };
+        order.createOrder(tickets);
+        assertTrue(order.getState() instanceof CreatedState,
+                "Order state should be CreatedState after calling createOrder");
+    }
+
+    @Test
+    void testSubmitOrder() {
+        order.submitOrder();
+        assertTrue(order.getState() instanceof ConceptState,
+                "Order state should still be ConceptState after calling submitOrder before createOrder");
+    }
+
+    @Test
+    void testPayOrder() {
+        order.createOrder(tickets);
+        order.submitOrder();
+        order.payOrder();
+        assertTrue(order.getState() instanceof HandledState,
+                "Order state should be HandledState after calling payOrder");
+    }
+
+    @Test
+    void testRemindOrder() {
+        order.createOrder(tickets);
+        order.submitOrder();
+        order.remindOrder();
+        assertTrue(order.getState() instanceof ProvisionalState,
+                "Order state should be ProvisionalState after calling remindOrder");
+    }
+
+    @Test
+    void testCancelOrder() {
+        order.createOrder(tickets);
+        order.cancelOrder();
+        assertTrue(order.getState() instanceof CancelledState,
+                "Order state should be CancelledState after calling cancelOrder");
+    }
+
+    // calculatePrice tests
     @Test
     void testCalculatePrice_StudentOrderThreeTickets() {
         studentOrder.addSeat(regularMovieTicketWeekDay);
