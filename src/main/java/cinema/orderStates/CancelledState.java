@@ -2,9 +2,9 @@ package cinema.orderStates;
 
 import cinema.MovieTicket;
 import cinema.Order;
-import cinema.OrderState;
+import cinema.IOrderState;
 
-public class CancelledState implements OrderState {
+public class CancelledState implements IOrderState {
 
     @Override
     public void createOrder(Order order, MovieTicket[] tickets) {

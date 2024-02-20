@@ -1,6 +1,6 @@
 package cinema;
 
-public interface OrderState {
+public interface IOrderState {
     void createOrder(Order order, MovieTicket[] tickets);
     void submitOrder(Order order);
     void payOrder   (Order order);

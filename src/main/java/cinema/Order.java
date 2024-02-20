@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import cinema.orderStates.CreatedState;
 
 public class Order {
-    private OrderState state;
+    private IOrderState state;
     private int orderNr;
     private boolean isStudentOrder;
     private ArrayList<MovieTicket> tickets = new ArrayList<>();
@@ -134,11 +134,11 @@ public class Order {
         }
     }
 
-    public void setState(OrderState state) {
+    public void setState(IOrderState state) {
         this.state = state;
     }
 
-    public OrderState getState() {
+    public IOrderState getState() {
         return state;
     }
 
