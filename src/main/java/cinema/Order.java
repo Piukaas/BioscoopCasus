@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,11 +13,12 @@ import org.json.JSONObject;
 import cinema.orderStates.CreatedState;
 
 public class Order {
-    private IOrderState state;
-    private int orderNr;
-    private boolean isStudentOrder;
-    private ArrayList<MovieTicket> tickets = new ArrayList<>();
-    private static int count = 0;
+    private IOrderState         state;
+    private int                 orderNr;
+    private boolean             isStudentOrder;
+    private List<MovieTicket>   tickets   = new ArrayList<>();
+    private List<OrderObserver> observers = new ArrayList<>();
+    private static int          count     = 0;
 
     public Order(int orderNr, boolean isStudentOrder) {
         this.orderNr = orderNr;
@@ -30,6 +32,16 @@ public class Order {
 
     public void addSeat(MovieTicket ticket) {
         tickets.add(ticket);
+    }
+
+    public void addObserver(OrderObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers(String message) {
+        for (OrderObserver observer : observers) {
+            observer.update(message);
+        }
     }
 
     public void reserveSeats() {
