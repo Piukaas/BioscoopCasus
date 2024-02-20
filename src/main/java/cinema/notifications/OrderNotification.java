@@ -1,7 +1,5 @@
 package cinema.notifications;
 
-import cinema.OrderObserver;
-
 public class OrderNotification implements OrderObserver {
     private Notification notificationAdapter;
 
