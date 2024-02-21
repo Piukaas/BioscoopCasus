@@ -2,6 +2,7 @@ package cinema;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.time.LocalDateTime;
 
@@ -162,5 +163,39 @@ class OrderTest {
         }
         assertEquals(81.9, order.calculatePrice());
     }
+
+@Test
+void testAddSeat() {
+    Order order = new Order(1, false);
+    MovieTicket ticket = new MovieTicket(movieScreening, 1, 1, false);
+    order.addSeat(ticket);
+    assertEquals(1, order.getTickets().size());
+    assertTrue(order.getTickets().contains(ticket));
+}
+
+@Test
+void testReserveSeats() {
+    Order order = new Order(1, false);
+    MovieTicket ticket1 = new MovieTicket(movieScreening, 1, 1, false);
+    MovieTicket ticket2 = new MovieTicket(movieScreening, 2, 2, false);
+    order.addSeat(ticket1);
+    order.addSeat(ticket2);
+    order.reserveSeats();
+    assertTrue(movieScreening.isSeatReserved(1, 1));
+    assertTrue(movieScreening.isSeatReserved(2, 2));
+}
+
+@Test
+void testRemoveSeatReservation() {
+    Order order = new Order(1, false);
+    MovieTicket ticket1 = new MovieTicket(movieScreening, 1, 1, false);
+    MovieTicket ticket2 = new MovieTicket(movieScreening, 2, 2, false);
+    order.addSeat(ticket1);
+    order.addSeat(ticket2);
+    order.reserveSeats();
+    order.removeSeatReservation();
+    assertFalse(movieScreening.isSeatReserved(1, 1));
+    assertFalse(movieScreening.isSeatReserved(2, 2));
+}
 
 }
