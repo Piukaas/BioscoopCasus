@@ -1,4 +1,7 @@
-package cinema;
+package cinema.orderStates;
+
+import cinema.MovieTicket;
+import cinema.Order;
 
 public interface IOrderState {
     void createOrder(Order order, MovieTicket[] tickets);

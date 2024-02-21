@@ -2,7 +2,6 @@ package cinema.orderStates;
 
 import cinema.MovieTicket;
 import cinema.Order;
-import cinema.IOrderState;
 
 public class CreatedState implements IOrderState {
 

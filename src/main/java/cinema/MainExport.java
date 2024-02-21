@@ -2,6 +2,9 @@ package cinema;
 
 import java.time.LocalDateTime;
 
+import cinema.export.JsonExportStrategy;
+import cinema.export.PlaintextExportStrategy;
+
 public class MainExport {
     public static void main(String[] args) {
         // Create a movie
@@ -43,8 +46,10 @@ public class MainExport {
         }
 
         // Export the orders
-        order.export(TicketExportFormat.PLAINTEXT);
-        studentOrder.export(TicketExportFormat.JSON);
-        groupOrder.export(TicketExportFormat.PLAINTEXT);
+        JsonExportStrategy jsonExport = new JsonExportStrategy();
+        jsonExport.export(order);
+        jsonExport.export(studentOrder);
+        PlaintextExportStrategy plaintextExport = new PlaintextExportStrategy();
+        plaintextExport.export(groupOrder);
     }
 }
